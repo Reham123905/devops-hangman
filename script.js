@@ -26,13 +26,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function toggleTheme() {
     const themeIcon = document.querySelector('.theme-icon');
+    const body = document.body;
     
-    if (themeIcon.textContent === '🌙') {
-        themeIcon.textContent = '☀️';
-    } else {
+    if (body.classList.contains('dark-mode')) {
+        body.classList.remove('dark-mode');
         themeIcon.textContent = '🌙';
+    } else {
+        body.classList.add('dark-mode');
+        themeIcon.textContent = '☀️';
     }
 }
+
 
 function switchTab(tabName) {
     const tabs = document.querySelectorAll('.tab-content');
