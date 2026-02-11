@@ -303,36 +303,41 @@ function checkGameStatus() {
 
 function gameWon() {
     gameState.gameActive = false;
-    
+
+    // Give points to the current player (the one who guessed correctly)
     if (gameState.currentPlayer === 1) {
-        gameState.player2.score += 10;
-        document.getElementById('score2').textContent = gameState.player2.score;
+        gameState.player1.score += 10
+        document.getElementById('score1').textContent = gameState.player1.score
     } else {
-        gameState.player1.score += 10;
-        document.getElementById('score1').textContent = gameState.player1.score;
+        gameState.player2.score += 10
+        document.getElementById('score2').textContent = gameState.player2.score
     }
-    
+
     const statusDiv = document.getElementById('gameStatus');
     const statusMsg = document.getElementById('statusMessage');
-    
-    const winnerName = gameState.currentPlayer === 1 ? 
-        gameState.player2.name : gameState.player1.name;
-    
+
+    const winnerName = gameState.currentPlayer === 1 ?
+        gameState.player1.name : gameState.player2.name;
+
     statusMsg.textContent = `🎉 ${winnerName} won! The word was: ${gameState.currentWord}`;
     statusDiv.classList.add('show', 'winner');
+
+    // Alternate player for next round
+    gameState.currentPlayer = gameState.currentPlayer === 1 ? 2 : 1;
 }
 
 function gameLost() {
     gameState.gameActive = false;
-    
+
     const statusDiv = document.getElementById('gameStatus');
     const statusMsg = document.getElementById('statusMessage');
-    
-    const currentPlayerName = gameState.currentPlayer === 1 ? 
+
+    const currentPlayerName = gameState.currentPlayer === 1 ?
         gameState.player1.name : gameState.player2.name;
-    
+
     statusMsg.textContent = `😢 ${currentPlayerName} lost! The word was: ${gameState.currentWord}`;
     statusDiv.classList.add('show', 'loser');
-    
+
+    // Alternate player for next round
     gameState.currentPlayer = gameState.currentPlayer === 1 ? 2 : 1;
 }
